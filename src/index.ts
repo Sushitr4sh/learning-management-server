@@ -7,6 +7,7 @@ import morgan from "morgan";
 import * as dynamoose from "dynamoose";
 
 /* ROUTE IMPORTS */
+import courseRoute from "./routes/courseRoutes";
 
 /* CIONFIGURATIONS */
 dotenv.config();
@@ -30,6 +31,8 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("Lobang puki");
 });
+
+app.use("/courses", courseRoute);
 
 /* SERVER */
 const port = process.env.PORT || 3000;
