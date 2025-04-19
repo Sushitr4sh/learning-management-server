@@ -11,6 +11,7 @@ export const listCourses = async (
       category && category !== "all"
         ? await Course.scan("category").eq(category).exec()
         : await Course.scan().exec();
+    /* When we set this response, we have the message and data key. But when we fetch it on RTK query,this object is being stored inside anoter variable. If you just want to access the course, you can see the custom query setup on api.ts */
     res.json({ message: "Courses retrieved successfully", data: courses });
   } catch (error) {
     res.status(500).json({ message: "Error retrieving courses", error });
