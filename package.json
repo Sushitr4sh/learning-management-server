@@ -24,6 +24,7 @@
     "helmet": "^8.1.0",
     "morgan": "^1.10.0",
     "pluralize": "^8.0.0",
+    "stripe": "^18.1.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
