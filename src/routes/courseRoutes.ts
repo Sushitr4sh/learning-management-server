@@ -14,7 +14,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 router.get("/", listCourses);
 // see index.ts, we don't have requireAuth middleware yet
-router.get("/", requireAuth(), createCourse);
+router.post("/", requireAuth(), createCourse);
 
 router.get("/:courseId", getCourse);
 // Here is where we're going to use multer to allow file/media upload. It stores the file temporarily until we uploaded it into S3 bucket.
