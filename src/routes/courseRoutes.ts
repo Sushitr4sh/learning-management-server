@@ -6,6 +6,7 @@ import {
   createCourse,
   updateCourse,
   deleteCourse,
+  getUploadVideoUrl,
 } from "../controllers/courseController";
 import { requireAuth } from "@clerk/express";
 
@@ -21,5 +22,11 @@ router.get("/:courseId", getCourse);
 // This image upload won't be implemented but we'll use the multer for video upload.
 router.put("/:courseId", requireAuth(), upload.single("image"), updateCourse);
 router.delete("/:courseId", requireAuth(), deleteCourse);
+
+router.post(
+  "/:courseId/sections/:sectionId/chapters/:chapterId/get-upload-url",
+  requireAuth(),
+  getUploadVideoUrl
+);
 
 export default router;

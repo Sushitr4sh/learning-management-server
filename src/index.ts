@@ -5,6 +5,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import * as dynamoose from "dynamoose";
+import serverless from "serverless-http";
 import {
   createClerkClient,
   clerkMiddleware,
@@ -16,6 +17,7 @@ import courseRoutes from "./routes/courseRoutes";
 import userClerkRoutes from "./routes/userClerkRoutes";
 import transactionRoutes from "./routes/transactionRoutes";
 import userCourseProgressRoutes from "./routes/userCourseProgressRoutes";
+import seed from "./seed/seedDynamodb";
 
 /* CIONFIGURATIONS */
 dotenv.config();
@@ -55,3 +57,18 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+/* aws production environment */
+const serverlessApp = serverless(app);
+export const handler = async (event: any, context: any) => {
+  // seed the database from our lambda.
+  if (event.action === "seed") {
+    await seed();
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: "Data seeded successfully" }),
+    };
+  } else {
+    return serverlessApp(event, context);
+  }
+};
