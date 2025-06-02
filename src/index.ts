@@ -44,7 +44,7 @@ app.use(clerkMiddleware());
 
 /* ROUTES */
 app.get("/", (req, res) => {
-  res.send("Lobang puki");
+  res.send("Hello World");
 });
 
 app.use("/courses", courseRoutes);
